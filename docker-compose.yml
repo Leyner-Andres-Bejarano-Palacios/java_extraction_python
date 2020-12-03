@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/home/leyner/Documentos/ultracom/tarea\ 58\,\ consultor\ gcp\ proteccion/arquitectura/pythonSeed/Yohan/otherFiles/H1/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+     networks:
+      - app-tier
+
+   conne_java8:
+     volumes:
+       - myapp:/home/leyner/Documentos/ultracom/tarea\ 58\,\ consultor\ gcp\ proteccion/arquitectura/pythonSeed/Yohan/H2_java_exploration/haciendolo/docker-java-hello-world-master
+     restart: always
+     depends_on:
+       - db
+     image: miguno/java-docker-build-tutorial
+     networks:
+      - app-tier
+
+networks:
+  app-tier:
+    driver: bridge
+    
+volumes:
+    myapp:
+    db_data: {}
